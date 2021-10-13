@@ -1,24 +1,27 @@
-from rl_inventory_api.constants import Colors, Certifies, Series, Tradeable, Rarities
+from rl_inventory_api.constants import Colors, Certifies, Series, Tradeable, Rarities, Types
+from dataclasses import dataclass, field
 
 
+@dataclass
 class Item:
-    def __init__(self, product_id, name, slot, paint, certification, certification_value, certification_label, quality,
-                 crate, tradeable, amount, instance_id):
-        self.product_id = int(product_id)
-        self.name = name
-        self.slot = slot
-        self.paint = paint
-        self.certification = certification
-        self.certification_value = int(certification_value)
-        self.certification_label = certification_label
-        self.quality = quality
-        self.crate = crate
-        self.tradeable = tradeable
-        self.amount = int(amount)
-        self.instance_id = int(instance_id)
+    product_id: int = field(repr=False)
+    name: str
+    slot: str
+    paint: str
+    certification: str = field(repr=False)
+    certification_value: int = field(repr=False)
+    certification_label: str
+    quality: str
+    crate: str
+    tradeable: str
+    amount: int
+    instance_id: int = field(repr=False)
+
+    def quantity(self):
+        return int(self.amount)
 
     def is_painted(self):
-        return self.paint != Certifies.NONE
+        return self.paint != Colors.NONE
 
     def is_certificate(self):
         return self.certification_label != Certifies.NONE
@@ -62,4 +65,14 @@ class Item:
     def is_nce(self):
         return self.is_non_crate() and self.is_exotic()
 
+    def is_blueprint(self):
+        return self.slot == Types.BLUEPRINT
 
+    @staticmethod
+    def get_decal_and_car_name_by_name(name):
+        car, decal = name.split(":")
+        decal = decal.strip()
+        return car, decal
+
+    def get_decal_and_car_name(self):
+        return self.get_decal_and_car_name_by_name(self.name)

@@ -2,6 +2,7 @@ from pathlib import Path
 from rl_inventory_api.item import Item
 from rl_inventory_api.constants import Types, Rarities, Tradeable, Certifies, Colors
 import csv
+from dataclasses import astuple
 
 
 class Inventory:
@@ -19,7 +20,7 @@ class Inventory:
             writer = csv.writer(file)
             writer.writerow(["product id", "name", "slot", "paint", "certification", "certification value",
                              "certification label", "quality", "crate", "tradeable", "amount", "instanceid"])
-            writer.writerows([list(item.__dict__.values()) for item in self.items])
+            writer.writerows([astuple(item) for item in self.items])
 
     def intuitive_filter(self, name=None, type_=None, color=None, certify=None, rarity=None, crate=None, tradeable=None,
                          amount=None):
@@ -35,7 +36,7 @@ class Inventory:
         return self.filter(lambda item: all([compare_with_context(item, attr, value) for attr, value in args if value]))
 
     def quantity_items(self):
-        return sum([item.amount for item in self.items])
+        return sum([item.quantity() for item in self.items])
 
     def get_values(self, attribute):
         return {getattr(item, attribute) for item in self.items}
@@ -146,7 +147,10 @@ class Inventory:
         return self.filter_non_crate_by_rarity(Rarities.EXOTIC)
 
     def filter_blueprint(self):
-        return self.filter_by_type(Types.BLUEPRINT)
+        return self.filter(lambda item: item.is_blueprint())
+
+    def filter_not_blueprint(self):
+        return self.filter(lambda item: not item.is_blueprint())
 
     def filter_animated_decal(self):
         return self.filter_by_type(Types.ANIMATED_DECAL)
