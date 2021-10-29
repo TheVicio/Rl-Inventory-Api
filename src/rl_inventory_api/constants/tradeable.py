@@ -1,3 +1,2 @@
-class Tradeable:
-    TRUE = "true"
-    FALSE = "false"
+TRUE = "true"
+FALSE = "false"
