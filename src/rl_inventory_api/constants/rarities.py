@@ -1,8 +1,0 @@
-IMPORT = "Import"
-LIMITED = "Limited"
-UNCOMMON = "Uncommon"
-BLACK_MARKET = "Black market"
-RARE = "Rare"
-VERY_RARE = "Very rare"
-EXOTIC = "Exotic"
-RARITIES = [IMPORT, LIMITED, UNCOMMON, BLACK_MARKET, RARE, VERY_RARE, EXOTIC]
