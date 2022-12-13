@@ -21,6 +21,6 @@ setup(
     ],
     package_dir={"": "src"},
     packages=["bakkes_mod_inventory"],
-    install_requires=r"git+https://github.com/gustavopedrosob/rocket_league_utils",
+    install_requires=["pycocotools @ git+https://github.com/gustavopedrosob/rocket_league_utils"],
     python_requires=">=3.6"
 )
