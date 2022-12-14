@@ -30,7 +30,7 @@ def read_inventory() -> typing.Tuple[Item, ...]:
         for product_id, name, slot, paint, certification, certification_value, certification_label, rarity, crate, \
                 tradeable, amount, instance_id in list(content)[1:]:
             trade_lock = tradeable == "false"
-            item = Item(product_id, name, slot, paint, certification, certification_value, certification_label, rarity,
-                        crate, trade_lock, amount, instance_id)
+            item = Item(int(product_id), name, slot, paint, certification, int(certification_value),
+                        certification_label, rarity, crate, trade_lock, int(amount), int(instance_id))
             inventory = inventory + (item, )
         return inventory
