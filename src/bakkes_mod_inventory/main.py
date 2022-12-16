@@ -8,11 +8,11 @@ INVENTORY_PATH = str(pathlib.Path.home()) + r"/AppData/Roaming/bakkesmod/bakkesm
 
 
 class Item(rl_utils.BaseItem):
-    def __init__(self, product_id: int, name: str, slot: str, color: str, certified: str, certified_value: int,
-                 certified_label: str, rarity: str, serie: str, trade_lock: bool, quantity: int, instance_id: int):
+    def __init__(self, product_id: int, name: str, slot: str, color: str, certification: str, certified_value: int,
+                 certified: str, rarity: str, serie: str, trade_lock: bool, quantity: int, instance_id: int):
         self.product_id = product_id
         self.certification_value = certified_value
-        self.certification_label = certified_label
+        self.certification = certification
         self.trade_lock = trade_lock
         self.quantity = quantity
         self.instance_id = instance_id
